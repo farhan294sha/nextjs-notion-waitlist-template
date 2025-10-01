@@ -10,7 +10,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 export default function Home() {
-  const [name, setName] = useState<string>("");
+  const [ig, setIg] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -18,8 +18,8 @@ export default function Home() {
     setEmail(event.target.value);
   };
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+  const handleIgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIg(event.target.value);
   };
 
   const isValidEmail = (email: string) => {
@@ -28,7 +28,7 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
-    if (!name || !email) {
+    if (!ig || !email) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -42,24 +42,24 @@ export default function Home() {
 
     const promise = new Promise(async (resolve, reject) => {
       try {
-        // First, attempt to send the email
-        const mailResponse = await fetch("/api/mail", {
-          cache: "no-store",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ firstname: name, email }),
-        });
+        // // First, attempt to send the email
+        // const mailResponse = await fetch("/api/mail", {
+        //   cache: "no-store",
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ firstname: ig, email }),
+        // });
 
-        if (!mailResponse.ok) {
-          if (mailResponse.status === 429) {
-            reject("Rate limited");
-          } else {
-            reject("Email sending failed");
-          }
-          return; // Exit the promise early if mail sending fails
-        }
+        // if (!mailResponse.ok) {
+        //   if (mailResponse.status === 429) {
+        //     reject("Rate limited");
+        //   } else {
+        //     reject("Email sending failed");
+        //   }
+        //   return; // Exit the promise early if mail sending fails
+        // }
 
         // If email sending is successful, proceed to insert into Notion
         const notionResponse = await fetch("/api/notion", {
@@ -67,7 +67,7 @@ export default function Home() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email }),
+          body: JSON.stringify({ ig, email }),
         });
 
         if (!notionResponse.ok) {
@@ -77,7 +77,7 @@ export default function Home() {
             reject("Notion insertion failed");
           }
         } else {
-          resolve({ name });
+          resolve({ ig });
         }
       } catch (error) {
         reject(error);
@@ -87,7 +87,7 @@ export default function Home() {
     toast.promise(promise, {
       loading: "Getting you on the waitlist... 🚀",
       success: (data) => {
-        setName("");
+        setIg("");
         setEmail("");
         return "Thank you for joining the waitlist 🎉";
       },
@@ -115,24 +115,22 @@ export default function Home() {
         <CTA />
 
         <Form
-          name={name}
+          ig={ig}
           email={email}
-          handleNameChange={handleNameChange}
+          handleIgChange={handleIgChange}
           handleEmailChange={handleEmailChange}
           handleSubmit={handleSubmit}
           loading={loading}
         />
 
-        <Logos />
       </section>
 
-      <Footer />
 
       <Particles
         quantityDesktop={350}
         quantityMobile={100}
         ease={80}
-        color={"#F7FF9B"}
+        color={"#4A9FF5"}
         refresh
       />
     </main>
