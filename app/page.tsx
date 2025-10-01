@@ -29,12 +29,12 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!name || !email) {
-      toast.error("Please fill in all fields 😠");
+      toast.error("Please fill in all fields");
       return;
     }
 
     if (!isValidEmail(email)) {
-      toast.error("Please enter a valid email address 😠");
+      toast.error("Please enter a valid email address");
       return;
     }
 
@@ -111,7 +111,6 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center overflow-x-clip pt-12 md:pt-24">
       <section className="flex flex-col items-center px-4 sm:px-6 lg:px-8">
-        <Header />
 
         <CTA />
 
