@@ -4,12 +4,34 @@ import { Figtree } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
 
-const FigtreeFont = Figtree({ subsets: ["latin"] });
+const FigtreeFont = Figtree({
+  subsets: ["latin"],
+  variable: '--font-figtree',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: "ConceptMate — Join the Waitlist",
+  metadataBase: new URL("https://connect.conceptmates.com"),
+  title: "ConceptMate — Automate Your Instagram Growth",
   description:
-    "Join ConceptMate's exclusive waitlist and be the first to experience the future of creative collaboration.",
+    "Join the waitlist to get early access to powerful Instagram automation tools and grow your audience effortlessly!",
+  openGraph: {
+    type: "website",
+    title: "ConceptMate — Automate Your Instagram Growth",
+    description: "Join the waitlist to get early access to powerful Instagram automation tools and grow your audience effortlessly!",
+    url: "https://connect.conceptmates.com",
+    siteName: "ConceptMate",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1080,
+        height: 1080,
+        alt: "ConceptMate - Instagram Automation Tools",
+        type: "image/png",
+      },
+    ],
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({
@@ -19,22 +41,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <meta property="og:image" content="/opengraph-image.png" />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1280" />
-      <meta property="og:image:height" content="832" />
-      <meta
-        property="og:site_name"
-        content="ConceptMate"
-      />
-      <meta
-        property="og:url"
-        content="https://conceptmate.com/"
-      />
-      <meta name="twitter:image" content="/twitter-image.png" />
-      <meta name="twitter:image:type" content="image/png" />
-      <meta name="twitter:image:width" content="1280" />
-      <meta name="twitter:image:height" content="832" />
       <body className={FigtreeFont.className}>
         {children}
         <Toaster richColors position="top-center" />
